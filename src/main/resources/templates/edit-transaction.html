@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<!-- [Head] start -->
+
+<head th:replace="~{layout/master :: headelement}">
+
+</head>
+<!-- [Head] end -->
+<!-- [Body] Start -->
+
+<body data-pc-preset="preset-1" data-pc-direction="ltr" data-pc-theme="light">
+    <!-- [ Pre-loader ] start -->
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    <!-- [ Pre-loader ] End -->
+    <!-- [ Sidebar Menu ] start -->
+    <nav class="pc-sidebar" th:replace="~{layout/master :: sidebar}">
+
+    </nav>
+    <!-- [ Sidebar Menu ] end --> <!-- [ Header Topbar ] start -->
+    <header class="pc-header" th:replace="~{layout/master :: header}">
+
+    </header>
+    <!-- [ Header ] end -->
+
+
+
+    <!-- [ Main Content ] start -->
+    <div class="pc-container" th:replace="~{layout/master :: status-ref}">
+    </div>
+
+    <form th:action="@{/Transaction/add}" class="row g-" name="transactionForm" th:object="${transaction}"
+        method="post">
+        <input type="hidden" th:field="*{id}" />
+        <div class="col-6">
+            <label for="amount" class="form-label">Amount:</label>
+            <input type="number" id="amount" class="form-control" name="amount" th:field="*{amount}" required />
+            <div th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}" class="error"></div>
+        </div>
+        <div class="col-6">
+            <label for="date" class="form-label">Date:</label>
+            <input type="date" id="date" class="form-control" th:field="*{date}" required />
+            <div th:if="${#fields.hasErrors('date')}" th:errors="*{date}" class="error"></div>
+        </div>
+
+        <div class="col-6">
+            <label for="description" class="form-label">Description:</label>
+            <input type="text" id="description" class="form-control" name="description" th:field="*{description}"
+                required />
+            <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="error"></div>
+        </div>
+
+        <div class="col-6">
+            <label for="transactionType" class="form-label">Transaction Type:</label>
+            <select id="transactionType" class="form-select" name="transactionType" th:field="*{transactionType}"
+                required>
+                <option value="INCOME">Income</option>
+                <option value="EXPENSE">Expense</option>
+            </select>
+            <div th:if="${#fields.hasErrors('transactionType')}" th:errors="*{transactionType}" class="error"></div>
+        </div>
+
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+
+
+
+
+
+    <!-- [ Main Content ] end -->
+    <footer class="pc-footer" th:replace="~{layout/master :: footer-ref}">
+
+    </footer>
+    <div th:replace="~{layout/master :: plugin-required}"></div>
+
+</body>
+<!-- [Body] end -->
+
+</html>

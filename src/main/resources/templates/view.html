@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+    <div th:fragment="transactionModal">
+        <div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="=transactionModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 clas="modal-title">transaction Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <label><strong>Transaction ID :</strong></label>
+                                <label id="transId"></label>
+                            </div>
+                            <div class="mb-3">
+                                <label><strong>Transaction Amount :</strong></label>
+                                <labelid="transAmount"></label>
+                            </div>
+                            <div class="mb-3">
+                                <label><strong>Date Of Transaction :</strong>Date</label>
+                                <label id="transDate"></label>
+                            </div>
+                            <div class="mb-3">
+                                <label><strong>Transaction Details :</strong>Description</label>
+                                <label id="transDescription"></label>
+                            </div>
+                            <div class="mb-3">
+                                <label><strong>Transaction Type :</strong></label>
+                                <option class="transTransactionType"></option>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

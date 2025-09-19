@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<!-- [Head] start -->
+
+<head th:replace="~{layout/master :: headelement}">
+
+</head>
+<!-- [Head] end -->
+<!-- [Body] Start -->
+
+<body data-pc-preset="preset-1" data-pc-direction="ltr" data-pc-theme="light">
+    <!-- [ Pre-loader ] start -->
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    <!-- [ Pre-loader ] End -->
+    <!-- [ Sidebar Menu ] start -->
+    <nav class="pc-sidebar" th:replace="~{layout/master :: sidebar}">
+
+    </nav>
+    <!-- [ Sidebar Menu ] end --> <!-- [ Header Topbar ] start -->
+    <header class="pc-header" th:replace="~{layout/master :: header}">
+
+    </header>
+    <!-- [ Header ] end -->
+
+
+
+    <!-- [ Main Content ] start -->
+    <div class="pc-container" th:replace="~{layout/master :: status-ref}">
+    </div>
+    <div style="margin-left: 30px; border:outset 0.2px;border-radius: 10px; padding: 50px; padding-top: 0px;">
+        <div
+            style="padding-bottom: 50px; font-family:Arial, Helvetica, sans-serif; font-size: 20px; font-weight: 100; padding-top: 10px; ">
+            <i class="fa-solid fa-pen-to-square"></i> Add New Transaction
+        </div>
+        <form th:action="@{/Transaction/add}" class="row" name="transactionForm" th:object="${transaction}"
+            method="post">
+            <input type="hidden" th:field="*{id}" />
+            <div class="col-9" style="margin-bottom: 20px;">
+                <label for="amount" class="form-label">Amount:</label>
+                <input type="number" id="amount" class="form-control" name="amount" th:field="*{amount}" required />
+                <div th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}" class="error"></div>
+            </div>
+            <div class="col-3"></div>
+            <div class="col-9" style="margin-bottom: 20px;">
+                <label for="date" class="form-label">Date:</label>
+                <input type="date" id="date" name="date" class="form-control" th:field="*{date}" required />
+                <div th:if="${#fields.hasErrors('date')}" th:errors="*{date}" class="error"></div>
+            </div>
+            <div class="col-3"></div>
+
+            <div class="col-9" style="margin-bottom: 20px;">
+                <label for="description" class="form-label">Description:</label>
+                <input type="text" id="description" class="form-control" name="description" th:field="*{description}"
+                    required />
+                <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="error"></div>
+            </div>
+            <div class="col-3"></div>
+
+            <div class="col-9" style="margin-bottom: 20px;">
+                <label for="transactionType" class="form-label">Transaction Type:</label>
+                <select id="transactionType" class="form-select" name="transactionType" th:field="*{transactionType}"
+                    required>
+                    <option value="INCOME">Income</option>
+                    <option value="EXPENSE">Expense</option>
+                </select>
+                <div th:if="${#fields.hasErrors('transactionType')}" th:errors="*{transactionType}" class="error"></div>
+            </div>
+            <div class="col-3"></div>
+
+            <div class="col-12" style="margin-top: 20px;">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+
+
+
+    </div>
+
+    <!-- [ Main Content ] end -->
+    <footer class="pc-footer" th:replace="~{layout/master :: footer-ref}">
+
+    </footer>
+    <!-- [Page Specific JS] start -->
+    <script src="../assets/js/plugins/apexcharts.min.js"></script>
+    <script src="../assets/js/pages/dashboard-default.js"></script>
+    <!-- [Page Specific JS] end -->
+    <!-- Required Js -->
+    <script src="../assets/js/plugins/popper.min.js"></script>
+    <script src="../assets/js/plugins/simplebar.min.js"></script>
+    <script src="../assets/js/plugins/bootstrap.min.js"></script>
+    <script src="../assets/js/fonts/custom-font.js"></script>
+    <script src="../assets/js/pcoded.js"></script>
+    <script src="../assets/js/plugins/feather.min.js"></script>
+
+
+
+
+
+    <script>layout_change('light');</script>
+
+
+
+
+    <script>change_box_container('false');</script>
+
+
+
+    <script>layout_rtl_change('false');</script>
+
+
+    <script>preset_change("preset-1");</script>
+
+
+    <script>font_change("Public-Sans");</script>
+
+
+
+</body>
+<!-- [Body] end -->
+
+</html>

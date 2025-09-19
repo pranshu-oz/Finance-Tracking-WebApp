@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<!-- [Head] start -->
+
+<head th:replace="~{layout/master :: headelement}">
+
+</head>
+<!-- [Head] end -->
+<!-- [Body] Start -->
+
+<body data-pc-preset="preset-1" data-pc-direction="ltr" data-pc-theme="light">
+    <!-- [ Pre-loader ] start -->
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    <!-- [ Pre-loader ] End -->
+    <!-- [ Sidebar Menu ] start -->
+    <nav class="pc-sidebar" th:replace="~{layout/master :: sidebar}">
+
+    </nav>
+    <!-- [ Sidebar Menu ] end --> <!-- [ Header Topbar ] start -->
+    <header class="pc-header" th:replace="~{layout/master :: header}">
+
+    </header>
+    <!-- [ Header ] end -->
+
+
+
+    <!-- [ Main Content ] start -->
+    <div class="pc-container" th:replace="~{layout/master :: status-ref}">
+    </div>
+
+    </button>
+    <div th:if="${successMassage}" class="alert alert-success">
+        <span th:text="${successMassage}"></span>
+    </div>
+
+    <body>
+
+        <div style="margin-left: 50px;">
+
+            <form th:action="@{/category}" method="get" class="row g-2 align-items-center">
+
+                <!-- Name -->
+                <div class="col-auto">
+                    <input type="text" class="form-control" name="name" placeholder="Name">
+                </div>
+
+
+
+                <!-- Filter Button -->
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-filter"></i></button>
+                </div>
+
+            </form>
+
+
+
+            <table class="table table-bordered" style="margin-top: 10px;">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="cat : ${categories}">
+                        <td th:text="${cat.name}"></td>
+                        <td>
+                            <a class=" btn btn-warning" href="#" data-bs-toggle="modal"
+                                data-bs-target="#transactionModal"
+                                th:onclick="'sendValue('+${cat.id}+');return false;'">View</a>
+                            <a class="btn btn-success" th:href="@{/category/edit/{id}(id=${cat.id})}">Edit</a>
+                            <a class="btn btn-danger" th:href="@{/category/delete/{id}(id=${cat.id})}">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                        <a class="page-link"
+                            th:href="@{/category(page=${currentPage - 1}, size=${pageSize})}">Previous</a>
+                    </li>
+                    <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                        th:classappend="${i == currentPage} ? 'active'">
+                        <a class="page-link" th:href="@{/category(page=${i}, size=${pageSize})}"
+                            th:text="${i + 1}">1</a>
+                    </li>
+                    <li class="page-item" th:classappend="${currentPage + 1 >= totalPages} ? 'disabled'">
+                        <a class="page-link" th:href="@{/category(page=${currentPage + 1}, size=${pageSize})}">Next</a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+        <!-- <div th:replace="~{view :: transactionModal}"></div> -->
+
+
+        <!-- [ Main Content ] end -->
+        <!-- <footer class="pc-footer" th:replace="~{layout/master :: footer-ref}">
+            
+    </footer> -->
+        <div th:replace="~{layout/master :: plugin-required}"></div>
+
+
+
+    </body>
+    <!-- [Body] end -->
+
+</html>
