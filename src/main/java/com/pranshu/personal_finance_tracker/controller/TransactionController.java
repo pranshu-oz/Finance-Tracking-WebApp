@@ -2,6 +2,8 @@ package com.pranshu.personal_finance_tracker.controller;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,7 +16,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.pranshu.personal_finance_tracker.model.Category;
 import com.pranshu.personal_finance_tracker.model.Transaction;
+import com.pranshu.personal_finance_tracker.services.CategoryService;
 import com.pranshu.personal_finance_tracker.services.TransactionRepository;
 import com.pranshu.personal_finance_tracker.services.TransactionService;
 
@@ -29,6 +33,9 @@ public class TransactionController {
 	
 	@Autowired
 	private TransactionService transactionService;
+	
+	@Autowired
+	private CategoryService categoryService;
 	
 	
 	
@@ -57,7 +64,8 @@ public class TransactionController {
 	
 	@GetMapping("/add")
 	public String transactionForm(Model model){
-		
+		List<Category> categories=categoryService.findAllCategory();
+		model.addAttribute("categoryType",categories);
 		model.addAttribute("transaction", new Transaction());
 		model.addAttribute("pageTitle", "Transction- form");
 		model.addAttribute("activePage", "Transaction");
@@ -70,9 +78,11 @@ public class TransactionController {
 		if(result.hasErrors()) {
 			System.out.println("validate Error"+result.getAllErrors());
 		}
+		Category category=categoryService.findCategoryById(transaction.getCategory().getId());
+		transaction.setCategory(category);
+		System.out.println(transaction.getCategory());
 		transactionRepository.save(transaction);
 		redirectAttributes.addFlashAttribute("successMassage","Transaction added successfully");
-		
 		return "redirect:/Transaction";
 	}
 	@GetMapping("/View/{id}")

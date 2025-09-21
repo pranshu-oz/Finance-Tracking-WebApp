@@ -1,7 +1,5 @@
 package com.pranshu.personal_finance_tracker.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,19 +26,19 @@ public class CategoryController {
 
 	@Autowired
 	CategoryService categoryService;
-	
+
 	@Autowired
 	CategoryRepository categoryRepository;
-	
+
 	@GetMapping
-	public String getAllCategories(@RequestParam(defaultValue="0") int page,
-									@RequestParam(defaultValue="10") int size,
-									@RequestParam(required=false) String name,
-									Model model) {
-		
-		Pageable pageble=PageRequest.of(page, size);
-		
-		Page<Category> categories=categoryService.findFilterCategory(name,pageble);
+	public String getAllCategories(@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size,
+			@RequestParam(required = false) String name,
+			Model model) {
+
+		Pageable pageble = PageRequest.of(page, size);
+
+		Page<Category> categories = categoryService.findFilterCategory(name, pageble);
 		model.addAttribute("categories", categories);
 		model.addAttribute("activePage", "Category");
 		model.addAttribute("name", name);
@@ -48,33 +46,34 @@ public class CategoryController {
 		model.addAttribute("totalPages", categories.getTotalPages());
 		return "category";
 	}
-	
+
 	@PostMapping
 	public String saveAllCategories() {
-		
+
 		return "category";
 	}
-	
+
 	@GetMapping("/add")
 	public String addNewCategory(Model model) {
-		
-		Category categories=new Category();
+
+		Category categories = new Category();
 		model.addAttribute("activePage", "Category");
 		model.addAttribute("subPage", "Add New Category");
 		model.addAttribute("category", categories);
 		return "add-category";
 	}
-	
+
 	@PostMapping("/add")
-	public String addNewCategory(@Valid @ModelAttribute("category") Category category, BindingResult result, RedirectAttributes redirect) {
-		
-		if(result.hasErrors()) {
-			System.out.println("Error : "+result.getAllErrors());
+	public String addNewCategory(@Valid @ModelAttribute("category") Category category, BindingResult result,
+			RedirectAttributes redirect) {
+
+		if (result.hasErrors()) {
+			System.out.println("Error : " + result.getAllErrors());
 		}
-		
+
 		categoryRepository.save(category);
-		redirect.addFlashAttribute("successMessage","New Category has been Registered");
-		
+		redirect.addFlashAttribute("successMessage", "New Category has been Registered");
+
 		return "redirect:/category";
 	}
 }

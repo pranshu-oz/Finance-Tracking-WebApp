@@ -9,13 +9,9 @@ function sendValue(id) {
             document.getElementById("transId").innerHTML = data.id;
             document.getElementById("transDescription").innerHTML = data.description;
             document.getElementById("transDate").innerHTML = data.date;
-            document.getElementById("transTransactionType").innerHTML = data.transactionType.toString();
+            document.getElementById("transTransactionType").innerHTML = data.transactionType;
             document.getElementById("transAmount").innerHTML = data.amount;
-            // document.addEventListener("DOMContentLoaded",function(){
-            //     var myModal=new bootstrap.Modal(document.getElementById('transactionalModal'));
-            //     myModal.show();
-            // })
-
+            document.getElementById("transCategory").innerHTML = data.category.name;
         })
         .catch(error => console.error("Error", error));
 }
